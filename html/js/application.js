@@ -54,7 +54,7 @@ baro.fn.processPressure = function(str) {
 }
 
 
-// converts a value from 0..1 into spectrum RGB values
+// converts a value from 0 to 1 into spectrum RGB values
 // Modified code from: https://www.particleincell.com/2014/colormap
 baro.fn.scalarToRGB = function(val) {
   var r, g, b;
@@ -98,7 +98,8 @@ baro.fn.processFFT = function(csv) {
     // First, take logarithm, this will make it almost linear.
     var maglog = Math.log10(1 + mag);
     // Second, result of logarithm can be made even smoother by fitting a trend line and dividing by it. The following formula was trial-and-error in OpenOffice Calc until the spectrum at "silence" was uniformly blue.
-    var magcorr = maglog / (3.5 + 30 * Math.pow(i, -1)); // is now in range 0 to 1
+    var color_scale = 0.2; // adjust color scaling for FFT sizes. Use 0.2 for FFT size 128, and 3.5 for FFT size 16384)
+    var magcorr = maglog / (color_scale + 30 * Math.pow(i, -1)); // is now in range 0 to 1
    
     // print info about DFT bins
     //$("#log").append("bin " + i + ": mag=" + mag.toFixed(2) + " log=" + maglog.toFixed(2) + " magcorr=" + magcorr.toFixed(2) + "</br>");
