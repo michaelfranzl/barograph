@@ -1,0 +1,9 @@
+*~
+*.log
+*swp
+*.swap
+baroserver/baroserver
+*.o
+*.pro.user
+*.moc
+
